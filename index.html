@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امتحان الدائرة الكهربية - 12 عام فيزياء</title>
+    <title>امتحان تطبيقات المجال المغناطيسي - 12 عام فيزياء</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -11,7 +11,7 @@
         .formula { font-family: 'Times New Roman', serif; direction: ltr; display: inline-block; }
         .option-correct { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; transform: scale(1.02); }
         .option-wrong { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; animation: shake 0.5s; }
-        .option-selected { border: 3px solid #6366f1; background: #eef2ff; }
+        .option-selected { border: 3px solid #0d9488; background: #f0fdfa; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
         .fade-in { animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -20,32 +20,32 @@
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen p-4 md:p-8">
+<body class="bg-gradient-to-br from-teal-50 via-cyan-50 to-sky-50 min-h-screen p-4 md:p-8">
     <div class="max-w-5xl mx-auto">
         <!-- Header -->
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-6 fade-in">
-            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-8 text-white text-center">
-                <div class="text-6xl mb-3">⚡</div>
-                <h1 class="text-3xl md:text-4xl font-bold mb-2">امتحان الدائرة الكهربية</h1>
+            <div class="bg-gradient-to-r from-teal-600 via-cyan-600 to-sky-600 p-8 text-white text-center">
+                <div class="text-6xl mb-3">⚙️</div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">امتحان تطبيقات المجال المغناطيسي</h1>
                 <h2 class="text-xl md:text-2xl font-semibold opacity-90">الصف الثاني عشر - عام - فيزياء</h2>
-                <h3 class="text-lg opacity-80 mt-2">الوحدة الأولى: الكهرباء والتيار</h3>
+                <h3 class="text-lg opacity-80 mt-2">الوحدة الثانية: المغناطيسية - الدرس الرابع</h3>
             </div>
             <div class="p-6 bg-gray-50">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div class="bg-white rounded-xl p-4 shadow">
                         <div class="text-3xl mb-1">📝</div>
                         <div class="text-sm text-gray-500">عدد الأسئلة</div>
-                        <div class="text-2xl font-bold text-indigo-600" id="totalQ">15</div>
+                        <div class="text-2xl font-bold text-teal-600" id="totalQ">15</div>
                     </div>
                     <div class="bg-white rounded-xl p-4 shadow">
                         <div class="text-3xl mb-1">⭐</div>
                         <div class="text-sm text-gray-500">الدرجة الكلية</div>
-                        <div class="text-2xl font-bold text-purple-600">30</div>
+                        <div class="text-2xl font-bold text-cyan-600">30</div>
                     </div>
                     <div class="bg-white rounded-xl p-4 shadow">
                         <div class="text-3xl mb-1">⏱️</div>
                         <div class="text-sm text-gray-500">الوقت المتبقي</div>
-                        <div class="text-2xl font-bold text-pink-600" id="timer">30:00</div>
+                        <div class="text-2xl font-bold text-sky-600" id="timer">30:00</div>
                     </div>
                     <div class="bg-white rounded-xl p-4 shadow">
                         <div class="text-3xl mb-1">📊</div>
@@ -55,7 +55,7 @@
                 </div>
                 <!-- Progress Bar -->
                 <div class="mt-4 bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div id="progressBar" class="progress-fill bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full" style="width: 0%"></div>
+                    <div id="progressBar" class="progress-fill bg-gradient-to-r from-teal-500 to-cyan-500 h-full rounded-full" style="width: 0%"></div>
                 </div>
             </div>
         </div>
@@ -64,9 +64,9 @@
         <div class="bg-white rounded-2xl shadow-lg p-6 mb-6 fade-in">
             <h3 class="font-bold text-lg mb-4 text-gray-800">📋 بيانات الطالب</h3>
             <div class="grid md:grid-cols-3 gap-4">
-                <input type="text" id="studentName" placeholder="الاسم الثلاثي *" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-indigo-500 focus:outline-none">
-                <input type="text" id="studentId" placeholder="رقم الجلوس *" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-indigo-500 focus:outline-none">
-                <input type="text" id="studentClass" placeholder="الشعبة / الفصل" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-indigo-500 focus:outline-none">
+                <input type="text" id="studentName" placeholder="الاسم الثلاثي *" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-teal-500 focus:outline-none">
+                <input type="text" id="studentId" placeholder="رقم الجلوس *" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-teal-500 focus:outline-none">
+                <input type="text" id="studentClass" placeholder="الشعبة / الفصل" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-teal-500 focus:outline-none">
             </div>
             <p class="text-xs text-red-500 mt-2">* الحقول المطلوبة - سيتم إرسال النتيجة للمعلم تلقائياً</p>
         </div>
@@ -76,7 +76,7 @@
 
         <!-- Submit Button -->
         <div class="mt-8 text-center">
-            <button onclick="submitExam()" id="submitBtn" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xl font-bold px-12 py-4 rounded-2xl shadow-2xl transform hover:scale-105 transition">
+            <button onclick="submitExam()" id="submitBtn" class="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-xl font-bold px-12 py-4 rounded-2xl shadow-2xl transform hover:scale-105 transition">
                 📝 تسليم الامتحان
             </button>
             <p class="text-sm text-gray-500 mt-3">تأكد من إجابة جميع الأسئلة قبل التسليم - سيتم إرسال النتيجة للمعلم</p>
@@ -88,19 +88,17 @@
         </div>
 
         <!-- Formulas Reference -->
-        <div class="mt-8 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl p-6 border-2 border-indigo-300">
-            <h3 class="font-bold text-indigo-900 mb-4 flex items-center gap-2">
+        <div class="mt-8 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-2xl p-6 border-2 border-teal-300">
+            <h3 class="font-bold text-teal-900 mb-4 flex items-center gap-2">
                 <span class="text-2xl">📐</span> الصيغ والمفاهيم المساعدة
             </h3>
             <div class="grid md:grid-cols-2 gap-3 text-sm">
-                <div class="formula bg-white p-3 rounded-lg shadow">I = Q / t</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">V = I × R</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">ε = V + I×r</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">V = ε - I×r</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">R_total = R₁ + R₂ + ... (توالي)</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">1/R = 1/R₁ + 1/R₂ + ... (توازي)</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">P = V × I = I²R = V²/R</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">E = P × t</div>
+                <div class="formula bg-white p-3 rounded-lg shadow">F = qvB sin(θ) (قوة لورنتز)</div>
+                <div class="formula bg-white p-3 rounded-lg shadow">F = BIL sin(θ) (قوة على سلك)</div>
+                <div class="formula bg-white p-3 rounded-lg shadow">τ = NIAB sin(θ) (عزم الازدواج)</div>
+                <div class="formula bg-white p-3 rounded-lg shadow">μ₀ = 4π × 10⁻⁷ T·m/A</div>
+                <div class="formula bg-white p-3 rounded-lg shadow">B = μ₀nI (الملف اللولبي)</div>
+                <div class="formula bg-white p-3 rounded-lg shadow">B = μ₀I / (2πr) (سلك مستقيم)</div>
             </div>
         </div>
     </div>
@@ -112,211 +110,211 @@
                 id: 1,
                 type: 'mcq',
                 points: 2,
-                question: 'شدة التيار الكهربي تُعرف بأنها:',
+                question: 'ما هي قوة لورنتز (Lorentz Force)؟',
                 options: [
-                    'كمية الشحنة المارة في مقطع الموصل في وحدة الزمن',
-                    'فرق الجهد بين طرفي الموصل',
-                    'مقاومة الموصل لمرور التيار',
-                    'القدرة الكهربية المستهلكة'
+                    'القوة المؤثرة على شحنة متحركة في مجال مغناطيسي',
+                    'القوة بين مغناطيسين',
+                    'القوة الكهربية بين الشحنات',
+                    'قوة الجاذبية الأرضية'
                 ],
                 correct: 0,
-                explanation: 'شدة التيار (I) = كمية الشحنة (Q) ÷ الزمن (t)، أي I = Q/t. وهي معدل تدفق الشحنة الكهربية عبر مقطع الموصل.'
+                explanation: 'قوة لورنتز هي القوة المغناطيسية المؤثرة على شحنة متحركة في مجال مغناطيسي، وتُحسب من العلاقة: F = qvB sin(θ)'
             },
             {
                 id: 2,
                 type: 'mcq',
                 points: 2,
-                question: 'ينص قانون أوم على أن:',
+                question: 'متى تكون القوة المغناطيسية على شحنة متحركة في أقصى قيمة لها؟',
                 options: [
-                    'التيار يتناسب عكسياً مع الجهد',
-                    'الجهد الكهربي بين طرفي موصل يتناسب طردياً مع شدة التيار المار فيه عند ثبوت درجة الحرارة',
-                    'المقاومة تتغير بتغير التيار',
-                    'القدرة تساوي الجهد × الزمن'
+                    'عندما تتحرك الشحنة موازية للمجال (θ = 0°)',
+                    'عندما تتحرك الشحنة عمودية على المجال (θ = 90°)',
+                    'عندما تكون الشحنة ساكنة',
+                    'عندما تكون الشحنة سالبة'
                 ],
                 correct: 1,
-                explanation: 'قانون أوم: V = I × R، أي أن الجهد يتناسب طردياً مع التيار عند ثبوت المقاومة (وبالتالي درجة الحرارة).'
+                explanation: 'القوة F = qvB sin(θ) تكون قصوى عندما θ = 90° لأن sin(90°) = 1. وعندما θ = 0° تكون القوة صفراً لأن sin(0°) = 0.'
             },
             {
                 id: 3,
                 type: 'mcq',
                 points: 2,
-                question: 'القوة الدافعة الكهربية (EMF) تُرمز لها بالرمز:',
+                question: 'ما هي القوة المؤثرة على سلك مستقيم طوله L يحمل تيار I في مجال مغناطيسي B بزاوية θ؟',
                 options: [
-                    'V وتقاس بالأمبير',
-                    'ε وتقاس بالفولت',
-                    'I وتقاس بالأوم',
-                    'R وتقاس بالفولت'
+                    'F = BIL sin(θ)',
+                    'F = qvB sin(θ)',
+                    'F = NIAB sin(θ)',
+                    'F = μ₀nI'
                 ],
-                correct: 1,
-                explanation: 'القوة الدافعة الكهربية تُرمز لها بالرمز ε (إبسيلون) وتقاس بالفولت (V). وهي أقصى جهد توفره البطارية عند عدم مرور تيار.'
+                correct: 0,
+                explanation: 'القوة على سلك يحمل تياراً في مجال مغناطيسي تُحسب من: F = BIL sin(θ) حيث B المجال، I التيار، L طول السلك، θ الزاوية.'
             },
             {
                 id: 4,
                 type: 'mcq',
                 points: 2,
-                question: 'في التوصيل على التوالي، شدة التيار:',
+                question: 'في قاعدة اليد اليمنى للقوة (فلمنج)، ماذا يمثل الإبهام؟',
                 options: [
-                    'تتوزع على المقاومات',
-                    'تكون ثابتة في جميع المقاومات',
-                    'تزداد في كل مقاومة',
-                    'تقل في كل مقاومة'
+                    'اتجاه المجال المغناطيسي (B)',
+                    'اتجاه التيار الكهربي (I)',
+                    'اتجاه القوة المغناطيسية (F)',
+                    'اتجاه حركة الشحنة'
                 ],
-                correct: 1,
-                explanation: 'في التوصيل على التوالي، يمر نفس التيار في جميع المقاومات لأن المسار واحد فقط. بينما الجهد يتوزع على المقاومات.'
+                correct: 2,
+                explanation: 'في قاعدة فلمنج: السبابة = اتجاه المجال (B)، الوسطى = اتجاه التيار (I)، الإبهام = اتجاه القوة (F).'
             },
             {
                 id: 5,
                 type: 'mcq',
                 points: 2,
-                question: 'المقاومة المكافئة في التوصيل على التوازي تكون:',
+                question: 'ما هو المحول الرئيسي للطاقة في المحرك الكهربي؟',
                 options: [
-                    'أكبر من أكبر مقاومة',
-                    'مساوية لمجموع المقاومات',
-                    'أقل من أصغر مقاومة في الدائرة',
-                    'مساوية لمتوسط المقاومات'
+                    'من طاقة كهربية إلى طاقة حرارية',
+                    'من طاقة كهربية إلى طاقة ميكانيكية (حركة)',
+                    'من طاقة ميكانيكية إلى طاقة كهربية',
+                    'من طاقة ضوئية إلى طاقة كهربية'
                 ],
-                correct: 2,
-                explanation: 'في التوازي: 1/R = 1/R₁ + 1/R₂ + ...، والمقاومة المكافئة دائماً أقل من أصغر مقاومة في الدائرة لأن التيار له مسارات متعددة.'
+                correct: 1,
+                explanation: 'المحرك الكهربي يحول الطاقة الكهربية إلى طاقة ميكانيكية (حركة دورانية) باستخدام تأثير المجال المغناطيسي على ملف يحمل تياراً.'
             },
             {
                 id: 6,
                 type: 'mcq',
                 points: 2,
-                question: 'إذا كان التيار المار في مقاومة 2 أمبير وفرق الجهد 12 فولت، فإن قيمة المقاومة تساوي:',
+                question: 'ما وظيفة المبدل (Commutator) في المحرك الكهربي؟',
                 options: [
-                    '6 أوم',
-                    '24 أوم',
-                    '0.17 أوم',
-                    '10 أوم'
+                    'يولد المجال المغناطيسي',
+                    'يعكس اتجاه التيار كل نصف دورة لضمان استمرار الدوران',
+                    'يقيس شدة التيار',
+                    'يخزن الطاقة الكهربية'
                 ],
-                correct: 0,
-                explanation: 'من قانون أوم: R = V/I = 12/2 = 6 أوم'
+                correct: 1,
+                explanation: 'المبدل يعكس اتجاه التيار المار في الملف كل نصف دورة، مما يضمن بقاء عزم الدوران في نفس الاتجاه ويستمر المحرك في الدوران.'
             },
             {
                 id: 7,
                 type: 'mcq',
                 points: 2,
-                question: 'عند توصيل مقاومتين 4 أوم و 6 أوم على التوالي، المقاومة المكافئة تساوي:',
+                question: 'ما هي مكونات المحرك الكهربي الأساسية؟',
                 options: [
-                    '2.4 أوم',
-                    '10 أوم',
-                    '24 أوم',
-                    '5 أوم'
+                    'الملف، المغناطيس، المبدل، الفرشات',
+                    'البطارية، المصباح، المفتاح',
+                    'المقاومة، المكثف، الملف',
+                    'الداينمو، المحول، المنصهر'
                 ],
-                correct: 1,
-                explanation: 'في التوالي: R_total = R₁ + R₂ = 4 + 6 = 10 أوم'
+                correct: 0,
+                explanation: 'المحرك الكهربي يتكون من: الملف (Armature) الذي يدور، المغناطيس الذي يوفر مجالاً ثابتاً، المبدل (Commutator) الذي يعكس التيار، والفرشات (Brushes) التي تنقل التيار.'
             },
             {
                 id: 8,
                 type: 'mcq',
                 points: 2,
-                question: 'الجهد الطرفي للبطارية يكون أقل من القوة الدافعة الكهربية بسبب:',
+                question: 'عزم الازدواج (Torque) على ملف يحمل تياراً في مجال مغناطيسي يُحسب من العلاقة:',
                 options: [
-                    'المقاومة الداخلية للبطارية',
-                    'شدة التيار فقط',
-                    'كلاهما (المقاومة الداخلية وشدة التيار)',
-                    'لا شيء مما سبق'
+                    'τ = NIAB sin(θ)',
+                    'τ = BIL sin(θ)',
+                    'τ = qvB sin(θ)',
+                    'τ = μ₀nI'
                 ],
-                correct: 2,
-                explanation: 'V = ε - I×r، الجهد الطرفي يقل بسبب المقاومة الداخلية (r) وشدة التيار (I) معاً. هبوط الجهد = I×r'
+                correct: 0,
+                explanation: 'عزم الازدواج على ملف في مجال مغناطيسي: τ = NIAB sin(θ) حيث N عدد اللفات، I التيار، A مساحة الملف، B المجال، θ الزاوية.'
             },
             {
                 id: 9,
                 type: 'mcq',
                 points: 2,
-                question: 'بطارية قوتها الدافعة 12 فولت ومقاومتها الداخلية 1 أوم، وُصلت بمقاومة 5 أوم. شدة التيار المار في الدائرة تساوي:',
+                question: 'أي من التالي ليس من تطبيقات المجال المغناطيسي؟',
                 options: [
-                    '2 أمبير',
-                    '12 أمبير',
-                    '60 أمبير',
-                    '2.4 أمبير'
+                    'المحركات الكهربية',
+                    'أجهزة التصوير بالرنين المغناطيسي (MRI)',
+                    'المصابيح المتوهجة',
+                    'قطارات الرفع المغناطيسي (Maglev)'
                 ],
-                correct: 0,
-                explanation: 'I = ε / (R + r) = 12 / (5 + 1) = 12 / 6 = 2 أمبير'
+                correct: 2,
+                explanation: 'المصابيح المتوهجة تعتمد على تحويل الطاقة الكهربية إلى ضوء وحرارة عبر مقاومة سلك التنجستن، ولا تعتمد على المجال المغناطيسي.'
             },
             {
                 id: 10,
                 type: 'mcq',
                 points: 2,
-                question: 'في نفس البطارية السابقة (12V, 1Ω, مع مقاومة 5Ω)، الجهد الطرفي للبطارية يساوي:',
+                question: 'ما هو مبدأ عمل مسرّع الجسيمات الكبير (LHC)؟',
                 options: [
-                    '12 فولت',
-                    '10 فولت',
-                    '2 فولت',
-                    '6 فولت'
+                    'استخدام الجاذبية لتسريع الجسيمات',
+                    'استخدام المجالات الكهربية والمغناطيسية لتسريع وتوجيه الجسيمات المشحونة',
+                    'استخدام الحرارة لتسريع الجسيمات',
+                    'استخدام الضوء لتسريع الجسيمات'
                 ],
                 correct: 1,
-                explanation: 'V = ε - I×r = 12 - (2 × 1) = 12 - 2 = 10 فولت'
+                explanation: 'مسرّع LHC يستخدم مجالات كهربية لتسريع الجسيمات المشحونة، ومجالات مغناطيسية قوية لتوجيهها في مسار دائري داخل نفق طوله 27 كم.'
             },
             {
                 id: 11,
                 type: 'mcq',
                 points: 2,
-                question: 'القدرة الكهربية المستهلكة في المقاومة تُحسب من العلاقة:',
+                question: 'شحنة مقدارها 4 × 10⁻⁶ C تتحرك بسرعة 2 × 10⁵ m/s في مجال مغناطيسي 0.3 T بزاوية 90°. القوة المغناطيسية تساوي:',
                 options: [
-                    'P = V × I فقط',
-                    'P = I² × R فقط',
-                    'P = V² / R فقط',
-                    'جميع ما سبق صحيح'
+                    '0.24 N',
+                    '2.4 N',
+                    '0.024 N',
+                    '24 N'
                 ],
-                correct: 3,
-                explanation: 'القدرة الكهربية يمكن حسابها بثلاث صيغ مكافئة: P = V×I = I²R = V²/R، وجميعها صحيحة ومشتقة من قانون أوم.'
+                correct: 0,
+                explanation: 'F = qvB sin(θ) = (4 × 10⁻⁶) × (2 × 10⁵) × 0.3 × sin(90°) = 4 × 2 × 0.3 × 10⁻¹ = 2.4 × 10⁻¹ = 0.24 N'
             },
             {
                 id: 12,
                 type: 'mcq',
                 points: 2,
-                question: 'مصباح يعمل على جهد 120 فولت ويسحب تيار 2 أمبير. القدرة المستهلكة تساوي:',
+                question: 'سلك طوله 0.5 m يحمل تيار 4 A موضوع في مجال مغناطيسي 0.2 T بزاوية 90°. القوة المؤثرة عليه تساوي:',
                 options: [
-                    '60 واط',
-                    '240 واط',
-                    '120 واط',
-                    '2 واط'
+                    '0.4 N',
+                    '4 N',
+                    '0.04 N',
+                    '40 N'
                 ],
-                correct: 1,
-                explanation: 'P = V × I = 120 × 2 = 240 واط'
+                correct: 0,
+                explanation: 'F = BIL sin(θ) = 0.2 × 4 × 0.5 × sin(90°) = 0.4 N'
             },
             {
                 id: 13,
                 type: 'mcq',
                 points: 2,
-                question: 'ثلاث مقاومات 2Ω، 4Ω، 4Ω وُصلت على التوازي. المقاومة المكافئة للمجموعة تساوي:',
+                question: 'ملف عدد لفاته 100 لفة، مساحته 0.02 m²، يحمل تيار 3 A، موضوع في مجال مغناطيسي 0.5 T بزاوية 90°. عزم الازدواج يساوي:',
                 options: [
-                    '10 أوم',
-                    '1 أوم',
-                    '0.5 أوم',
-                    '2 أوم'
+                    '3 N·m',
+                    '30 N·m',
+                    '0.3 N·m',
+                    '300 N·m'
                 ],
-                correct: 1,
-                explanation: '1/R = 1/2 + 1/4 + 1/4 = 2/4 + 1/4 + 1/4 = 4/4 = 1، إذن R = 1 أوم'
+                correct: 0,
+                explanation: 'τ = NIAB sin(θ) = 100 × 3 × 0.02 × 0.5 × sin(90°) = 100 × 3 × 0.01 = 3 N·m'
             },
             {
                 id: 14,
                 type: 'mcq',
                 points: 2,
-                question: 'لماذا توصل الأجهزة الكهربائية في المنازل على التوازي وليس على التوالي؟',
+                question: 'عندما تتحرك شحنة موازية لاتجاه المجال المغناطيسي (θ = 0°)، تكون القوة المغناطيسية:',
                 options: [
-                    'لتوفير في الأسلاك',
-                    'لأن كل جهاز يحتاج نفس الجهد (120V) ويعمل مستقلاً عن الآخر',
-                    'لأن التوالي أسهل في التركيب',
-                    'لأن التوازي يقلل استهلاك الطاقة'
+                    'في أقصى قيمة لها',
+                    'تساوي صفراً',
+                    'تساوي نصف القيمة القصوى',
+                    'سالبة'
                 ],
                 correct: 1,
-                explanation: 'في التوازي، كل جهاز يحصل على الجهد الكامل (120V) ويعمل بشكل مستقل. إذا تعطل جهاز لا تتأثر الأجهزة الأخرى.'
+                explanation: 'عندما θ = 0°، فإن sin(0°) = 0، وبالتالي F = qvB × 0 = 0. لا توجد قوة مغناطيسية على الشحنة المتحركة موازية للمجال.'
             },
             {
                 id: 15,
                 type: 'mcq',
                 points: 2,
-                question: 'تزداد المقاومة الكهربية للموصل بزيادة:',
+                question: 'ما الذي يميز قطارات Maglev (الرفع المغناطيسي)؟',
                 options: [
-                    'مساحة مقطعه العرضي',
-                    'طوله',
-                    'درجة حرارته فقط',
-                    'شدة التيار المار فيه'
+                    'تسير على قضبان حديدية عادية',
+                    'تطفو فوق المسار باستخدام القوى المغناطيسية مما يلغي الاحتكاك',
+                    'تستخدم محركات ديزل',
+                    'تسير بسرعة بطيئة جداً'
                 ],
                 correct: 1,
-                explanation: 'المقاومة R = ρL/A، تتناسب طردياً مع الطول (L) وعكسياً مع مساحة المقطع (A). فكلما زاد الطول زادت المقاومة.'
+                explanation: 'قطارات Maglev تستخدم المجالات المغناطيسية القوية للطفو فوق المسار، مما يلغي الاحتكاك الميكانيكي ويسمح بسرعات عالية جداً تصل إلى 600 كم/ساعة.'
             }
         ];
 
@@ -332,18 +330,18 @@
             
             questions.forEach((q, index) => {
                 const qNumber = index + 1;
-                const bgColor = index % 3 === 0 ? 'from-blue-50 to-indigo-50 border-blue-500' : 
-                               index % 3 === 1 ? 'from-purple-50 to-pink-50 border-purple-500' : 
-                               'from-green-50 to-teal-50 border-green-500';
+                const bgColor = index % 3 === 0 ? 'from-teal-50 to-cyan-50 border-teal-500' : 
+                               index % 3 === 1 ? 'from-cyan-50 to-sky-50 border-cyan-500' : 
+                               'from-sky-50 to-blue-50 border-sky-500';
                 
                 html += `
                     <div class="bg-gradient-to-br ${bgColor} rounded-2xl p-6 shadow-lg border-r-4 fade-in" id="q${q.id}">
                         <div class="flex items-start justify-between mb-4 flex-wrap gap-2">
                             <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
-                                <span class="bg-white text-indigo-600 rounded-full w-10 h-10 flex items-center justify-center font-bold shadow">${qNumber}</span>
+                                <span class="bg-white text-teal-600 rounded-full w-10 h-10 flex items-center justify-center font-bold shadow">${qNumber}</span>
                                 السؤال ${qNumber}
                             </h3>
-                            <span class="bg-white px-3 py-1 rounded-full text-sm font-semibold text-purple-600 shadow">${q.points} ${q.points > 1 ? 'درجات' : 'درجة'}</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-sm font-semibold text-cyan-600 shadow">${q.points} ${q.points > 1 ? 'درجات' : 'درجة'}</span>
                         </div>
                         <p class="font-semibold text-gray-800 mb-4 text-lg">${q.question}</p>
                         ${renderMCQ(q)}
@@ -369,8 +367,8 @@
                 <div class="space-y-3">
                     ${q.options.map((opt, i) => `
                         <label class="flex items-center gap-3 bg-white rounded-xl p-4 cursor-pointer hover:shadow-lg transition border-2 border-transparent" id="opt${q.id}_${i}">
-                            <input type="radio" name="q${q.id}" value="${i}" onchange="selectAnswer(${q.id}, ${i})" class="w-5 h-5 text-indigo-600">
-                            <span class="bg-indigo-100 text-indigo-700 rounded-full w-8 h-8 flex items-center justify-center font-bold">${letters[i]}</span>
+                            <input type="radio" name="q${q.id}" value="${i}" onchange="selectAnswer(${q.id}, ${i})" class="w-5 h-5 text-teal-600">
+                            <span class="bg-teal-100 text-teal-700 rounded-full w-8 h-8 flex items-center justify-center font-bold">${letters[i]}</span>
                             <span class="flex-1 text-gray-800">${opt}</span>
                         </label>
                     `).join('')}
@@ -449,7 +447,7 @@
             let resultsHTML = '';
             let emailBody = '';
             
-            emailBody += `📋 نتيجة امتحان الدائرة الكهربية\n`;
+            emailBody += `📋 نتيجة امتحان تطبيقات المجال المغناطيسي\n`;
             emailBody += `=====================================\n\n`;
             emailBody += `👤 اسم الطالب: ${studentName}\n`;
             emailBody += `🔢 رقم الجلوس: ${studentId}\n`;
@@ -546,7 +544,7 @@
                     <p class="text-gray-700 mb-4">سيتم فتح تطبيق البريد الإلكتروني لإرسال النتيجة تلقائياً للمعلم:</p>
                     <div class="bg-white rounded-lg p-3 mb-4 text-sm">
                         <p><strong>إلى:</strong> mohammedhesham872@gmail.com</p>
-                        <p><strong>الموضوع:</strong> نتيجة امتحان الدائرة الكهربية - ${studentName}</p>
+                        <p><strong>الموضوع:</strong> نتيجة امتحان تطبيقات المجال المغناطيسي - ${studentName}</p>
                     </div>
                     <button onclick="sendEmailToTeacher()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:scale-105">
                         📤 إرسال النتيجة الآن
@@ -570,7 +568,7 @@
         // ==================== SEND EMAIL ====================
         function sendEmailToTeacher() {
             const teacherEmail = 'mohammedhesham872@gmail.com';
-            const subject = encodeURIComponent(`نتيجة امتحان الدائرة الكهربية - ${window.examStudentName}`);
+            const subject = encodeURIComponent(`نتيجة امتحان تطبيقات المجال المغناطيسي - ${window.examStudentName}`);
             const body = encodeURIComponent(window.examEmailBody);
             
             const mailtoLink = `mailto:${teacherEmail}?subject=${subject}&body=${body}`;
