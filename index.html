@@ -3,151 +3,587 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امتحان الفيزياء - الصف الثاني عشر عام - الدائرة الكهربية</title>
+    <title>امتحان الدائرة الكهربية - 12 عام فيزياء</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Cairo', sans-serif; }
         .formula { font-family: 'Times New Roman', serif; direction: ltr; display: inline-block; }
+        .option-correct { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; transform: scale(1.02); }
+        .option-wrong { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; animation: shake 0.5s; }
+        .option-selected { border: 3px solid #6366f1; background: #eef2ff; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .progress-fill { transition: width 0.5s ease; }
+        .timer-warning { animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen p-4 md:p-8">
-    <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl p-6 md:p-12">
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-5xl mx-auto">
         <!-- Header -->
-        <div class="text-center mb-8 pb-6 border-b-4 border-indigo-600">
-            <h1 class="text-3xl md:text-4xl font-bold text-indigo-800 mb-2">امتحان الفيزياء</h1>
-            <h2 class="text-xl md:text-2xl font-semibold text-gray-700">الصف الثاني عشر - عام</h2>
-            <h3 class="text-lg text-gray-600 mt-2">الوحدة الأولى: الكهرباء والتيار</h3>
-            <div class="mt-4 flex justify-center gap-6 text-sm">
-                <span class="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full">⏱️ الوقت: 60 دقيقة</span>
-                <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full">📝 الدرجة: 50 درجة</span>
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-6 fade-in">
+            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-8 text-white text-center">
+                <div class="text-6xl mb-3">⚡</div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">امتحان الدائرة الكهربية</h1>
+                <h2 class="text-xl md:text-2xl font-semibold opacity-90">الصف الثاني عشر - عام - فيزياء</h2>
+                <h3 class="text-lg opacity-80 mt-2">الوحدة الأولى: الكهرباء والتيار</h3>
+            </div>
+            <div class="p-6 bg-gray-50">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-white rounded-xl p-4 shadow">
+                        <div class="text-3xl mb-1">📝</div>
+                        <div class="text-sm text-gray-500">عدد الأسئلة</div>
+                        <div class="text-2xl font-bold text-indigo-600" id="totalQ">15</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow">
+                        <div class="text-3xl mb-1">⭐</div>
+                        <div class="text-sm text-gray-500">الدرجة الكلية</div>
+                        <div class="text-2xl font-bold text-purple-600">30</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow">
+                        <div class="text-3xl mb-1">⏱️</div>
+                        <div class="text-sm text-gray-500">الوقت المتبقي</div>
+                        <div class="text-2xl font-bold text-pink-600" id="timer">30:00</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow">
+                        <div class="text-3xl mb-1">📊</div>
+                        <div class="text-sm text-gray-500">التقدم</div>
+                        <div class="text-2xl font-bold text-green-600" id="progress">0/15</div>
+                    </div>
+                </div>
+                <!-- Progress Bar -->
+                <div class="mt-4 bg-gray-200 rounded-full h-3 overflow-hidden">
+                    <div id="progressBar" class="progress-fill bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full" style="width: 0%"></div>
+                </div>
             </div>
         </div>
 
         <!-- Student Info -->
-        <div class="bg-gray-50 rounded-xl p-4 mb-8">
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6 fade-in">
+            <h3 class="font-bold text-lg mb-4 text-gray-800">📋 بيانات الطالب</h3>
             <div class="grid md:grid-cols-3 gap-4">
-                <input type="text" placeholder="الاسم الثلاثي" class="border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-indigo-500 focus:outline-none">
-                <input type="text" placeholder="رقم الجلوس" class="border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-indigo-500 focus:outline-none">
-                <input type="text" placeholder="الشعبة" class="border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-indigo-500 focus:outline-none">
+                <input type="text" id="studentName" placeholder="الاسم الثلاثي *" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-indigo-500 focus:outline-none">
+                <input type="text" id="studentId" placeholder="رقم الجلوس *" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-indigo-500 focus:outline-none">
+                <input type="text" id="studentClass" placeholder="الشعبة / الفصل" class="border-2 border-gray-300 rounded-lg px-4 py-3 focus:border-indigo-500 focus:outline-none">
             </div>
+            <p class="text-xs text-red-500 mt-2">* الحقول المطلوبة - سيتم إرسال النتيجة للمعلم تلقائياً</p>
         </div>
 
-        <!-- Questions -->
-        <div class="space-y-8">
-            <!-- Question 1 -->
-            <div class="bg-blue-50 rounded-xl p-6 border-r-4 border-blue-600">
-                <h3 class="font-bold text-lg text-blue-900 mb-4">السؤال الأول: أكمل العبارات التالية (10 درجات)</h3>
-                <ol class="space-y-3 text-gray-800">
-                    <li class="flex gap-2"><span class="font-bold">1.</span> شدة التيار الكهربي = <input type="text" class="border-b-2 border-blue-400 w-48 mx-2 focus:border-blue-600 focus:outline-none" /> ÷ الزمن</li>
-                    <li class="flex gap-2"><span class="font-bold">2.</span> قانون أوم ينص على أن <input type="text" class="border-b-2 border-blue-400 w-64 mx-2 focus:border-blue-600 focus:outline-none" /></li>
-                    <li class="flex gap-2"><span class="font-bold">3.</span> القوة الدافعة الكهربية تُرمز لها بالرمز <input type="text" class="border-b-2 border-blue-400 w-24 mx-2 focus:border-blue-600 focus:outline-none" /> وتقاس بوحدة <input type="text" class="border-b-2 border-blue-400 w-32 mx-2 focus:border-blue-600 focus:outline-none" /></li>
-                    <li class="flex gap-2"><span class="font-bold">4.</span> في التوصيل على التوالي، شدة التيار <input type="text" class="border-b-2 border-blue-400 w-48 mx-2 focus:border-blue-600 focus:outline-none" /> في جميع المقاومات</li>
-                    <li class="flex gap-2"><span class="font-bold">5.</span> المقاومة المكافئة في التوصيل على التوازي تكون <input type="text" class="border-b-2 border-blue-400 w-48 mx-2 focus:border-blue-600 focus:outline-none" /> من أصغر مقاومة</li>
-                </ol>
-            </div>
+        <!-- Questions Container -->
+        <div id="questionsContainer" class="space-y-6"></div>
 
-            <!-- Question 2 -->
-            <div class="bg-green-50 rounded-xl p-6 border-r-4 border-green-600">
-                <h3 class="font-bold text-lg text-green-900 mb-4">السؤال الثاني: اختر الإجابة الصحيحة (10 درجات)</h3>
-                <ol class="space-y-4 text-gray-800">
-                    <li>
-                        <p class="font-semibold mb-2">1. إذا كان التيار المار في مقاومة 2 أمبير وفرق الجهد 12 فولت، فإن قيمة المقاومة تساوي:</p>
-                        <div class="grid grid-cols-2 gap-2 mr-4">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_1" class="w-4 h-4" /> أ) 6 أوم</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_1" class="w-4 h-4" /> ب) 24 أوم</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_1" class="w-4 h-4" /> ج) 0.17 أوم</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_1" class="w-4 h-4" /> د) 10 أوم</label>
-                        </div>
-                    </li>
-                    <li>
-                        <p class="font-semibold mb-2">2. عند توصيل مقاومتين 4 أوم و 6 أوم على التوالي، المقاومة المكافئة تساوي:</p>
-                        <div class="grid grid-cols-2 gap-2 mr-4">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_2" class="w-4 h-4" /> أ) 2.4 أوم</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_2" class="w-4 h-4" /> ب) 10 أوم</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_2" class="w-4 h-4" /> ج) 24 أوم</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_2" class="w-4 h-4" /> د) 5 أوم</label>
-                        </div>
-                    </li>
-                    <li>
-                        <p class="font-semibold mb-2">3. الجهد الطرفي للبطارية يكون أقل من القوة الدافعة الكهربية بسبب:</p>
-                        <div class="grid grid-cols-2 gap-2 mr-4">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_3" class="w-4 h-4" /> أ) المقاومة الداخلية</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_3" class="w-4 h-4" /> ب) شدة التيار</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_3" class="w-4 h-4" /> ج) كلاهما</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2_3" class="w-4 h-4" /> د) لا شيء مما سبق</label>
-                        </div>
-                    </li>
-                </ol>
-            </div>
-
-            <!-- Question 3 -->
-            <div class="bg-purple-50 rounded-xl p-6 border-r-4 border-purple-600">
-                <h3 class="font-bold text-lg text-purple-900 mb-4">السؤال الثالث: مسائل حسابية (20 درجة)</h3>
-                
-                <div class="bg-white rounded-lg p-4 mb-4">
-                    <p class="font-semibold mb-3">المسألة الأولى: (10 درجات)</p>
-                    <p class="mb-3">بطارية قوتها الدافعة الكهربية 12 فولت ومقاومتها الداخلية 1 أوم، وُصلت بمقاومة خارجية 5 أوم. احسب:</p>
-                    <ol class="mr-6 space-y-2">
-                        <li>شدة التيار المار في الدائرة</li>
-                        <li>الجهد الطرفي للبطارية</li>
-                        <li>القدرة الكهربية المستهلكة في المقاومة الخارجية</li>
-                    </ol>
-                    <div class="mt-4 p-4 bg-gray-50 rounded-lg min-h-32 border-2 border-dashed border-gray-300"></div>
-                </div>
-
-                <div class="bg-white rounded-lg p-4">
-                    <p class="font-semibold mb-3">المسألة الثانية: (10 درجات)</p>
-                    <p class="mb-3">ثلاث مقاومات قيمها 2 أوم، 4 أوم، 4 أوم وُصلت على التوازي، ثم وُصلت هذه المجموعة على التوالي مع مقاومة 3 أوم. إذا وُصلت الدائرة بمصدر جهده 12 فولت، احسب:</p>
-                    <ol class="mr-6 space-y-2">
-                        <li>المقاومة المكافئة للدائرة</li>
-                        <li>شدة التيار الكلي</li>
-                        <li>الجهد عبر المقاومة 3 أوم</li>
-                    </ol>
-                    <div class="mt-4 p-4 bg-gray-50 rounded-lg min-h-32 border-2 border-dashed border-gray-300"></div>
-                </div>
-            </div>
-
-            <!-- Question 4 -->
-            <div class="bg-orange-50 rounded-xl p-6 border-r-4 border-orange-600">
-                <h3 class="font-bold text-lg text-orange-900 mb-4">السؤال الرابع: علل لما يأتي (10 درجات)</h3>
-                <ol class="space-y-4 text-gray-800">
-                    <li>
-                        <p class="font-semibold mb-2">1. الجهد الطرفي للبطارية أقل من قوتها الدافعة الكهربية عند مرور التيار:</p>
-                        <div class="p-4 bg-white rounded-lg min-h-20 border-2 border-dashed border-gray-300 mt-2"></div>
-                    </li>
-                    <li>
-                        <p class="font-semibold mb-2">2. توصل الأجهزة الكهربائية في المنازل على التوازي وليس على التوالي:</p>
-                        <div class="p-4 bg-white rounded-lg min-h-20 border-2 border-dashed border-gray-300 mt-2"></div>
-                    </li>
-                    <li>
-                        <p class="font-semibold mb-2">3. تزداد المقاومة الكهربية للموصل بزيادة طوله:</p>
-                        <div class="p-4 bg-white rounded-lg min-h-20 border-2 border-dashed border-gray-300 mt-2"></div>
-                    </li>
-                </ol>
-            </div>
+        <!-- Submit Button -->
+        <div class="mt-8 text-center">
+            <button onclick="submitExam()" id="submitBtn" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xl font-bold px-12 py-4 rounded-2xl shadow-2xl transform hover:scale-105 transition">
+                📝 تسليم الامتحان
+            </button>
+            <p class="text-sm text-gray-500 mt-3">تأكد من إجابة جميع الأسئلة قبل التسليم - سيتم إرسال النتيجة للمعلم</p>
         </div>
 
-        <!-- Formulas Box -->
-        <div class="mt-8 bg-indigo-100 rounded-xl p-6 border-2 border-indigo-300">
-            <h3 class="font-bold text-indigo-900 mb-3">📐 الصيغ الرياضية المساعدة:</h3>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-                <div class="formula bg-white p-3 rounded-lg shadow">I = Q/t</div>
+        <!-- Results Section (Hidden Initially) -->
+        <div id="resultsSection" class="hidden mt-8 bg-white rounded-3xl shadow-2xl p-8 fade-in">
+            <div id="resultsContent"></div>
+        </div>
+
+        <!-- Formulas Reference -->
+        <div class="mt-8 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl p-6 border-2 border-indigo-300">
+            <h3 class="font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                <span class="text-2xl">📐</span> الصيغ والمفاهيم المساعدة
+            </h3>
+            <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="formula bg-white p-3 rounded-lg shadow">I = Q / t</div>
                 <div class="formula bg-white p-3 rounded-lg shadow">V = I × R</div>
                 <div class="formula bg-white p-3 rounded-lg shadow">ε = V + I×r</div>
                 <div class="formula bg-white p-3 rounded-lg shadow">V = ε - I×r</div>
                 <div class="formula bg-white p-3 rounded-lg shadow">R_total = R₁ + R₂ + ... (توالي)</div>
                 <div class="formula bg-white p-3 rounded-lg shadow">1/R = 1/R₁ + 1/R₂ + ... (توازي)</div>
-                <div class="formula bg-white p-3 rounded-lg shadow">P = V × I = I²R</div>
+                <div class="formula bg-white p-3 rounded-lg shadow">P = V × I = I²R = V²/R</div>
                 <div class="formula bg-white p-3 rounded-lg shadow">E = P × t</div>
             </div>
         </div>
-
-        <!-- Footer -->
-        <div class="mt-8 text-center text-gray-600 text-sm">
-            <p>بالتوفيق والنجاح! ✨</p>
-            <p class="mt-2">منصة 4U التعليمية © 2026</p>
-        </div>
     </div>
+
+    <script>
+        // ==================== QUESTIONS DATABASE ====================
+        const questions = [
+            {
+                id: 1,
+                type: 'mcq',
+                points: 2,
+                question: 'شدة التيار الكهربي تُعرف بأنها:',
+                options: [
+                    'كمية الشحنة المارة في مقطع الموصل في وحدة الزمن',
+                    'فرق الجهد بين طرفي الموصل',
+                    'مقاومة الموصل لمرور التيار',
+                    'القدرة الكهربية المستهلكة'
+                ],
+                correct: 0,
+                explanation: 'شدة التيار (I) = كمية الشحنة (Q) ÷ الزمن (t)، أي I = Q/t. وهي معدل تدفق الشحنة الكهربية عبر مقطع الموصل.'
+            },
+            {
+                id: 2,
+                type: 'mcq',
+                points: 2,
+                question: 'ينص قانون أوم على أن:',
+                options: [
+                    'التيار يتناسب عكسياً مع الجهد',
+                    'الجهد الكهربي بين طرفي موصل يتناسب طردياً مع شدة التيار المار فيه عند ثبوت درجة الحرارة',
+                    'المقاومة تتغير بتغير التيار',
+                    'القدرة تساوي الجهد × الزمن'
+                ],
+                correct: 1,
+                explanation: 'قانون أوم: V = I × R، أي أن الجهد يتناسب طردياً مع التيار عند ثبوت المقاومة (وبالتالي درجة الحرارة).'
+            },
+            {
+                id: 3,
+                type: 'mcq',
+                points: 2,
+                question: 'القوة الدافعة الكهربية (EMF) تُرمز لها بالرمز:',
+                options: [
+                    'V وتقاس بالأمبير',
+                    'ε وتقاس بالفولت',
+                    'I وتقاس بالأوم',
+                    'R وتقاس بالفولت'
+                ],
+                correct: 1,
+                explanation: 'القوة الدافعة الكهربية تُرمز لها بالرمز ε (إبسيلون) وتقاس بالفولت (V). وهي أقصى جهد توفره البطارية عند عدم مرور تيار.'
+            },
+            {
+                id: 4,
+                type: 'mcq',
+                points: 2,
+                question: 'في التوصيل على التوالي، شدة التيار:',
+                options: [
+                    'تتوزع على المقاومات',
+                    'تكون ثابتة في جميع المقاومات',
+                    'تزداد في كل مقاومة',
+                    'تقل في كل مقاومة'
+                ],
+                correct: 1,
+                explanation: 'في التوصيل على التوالي، يمر نفس التيار في جميع المقاومات لأن المسار واحد فقط. بينما الجهد يتوزع على المقاومات.'
+            },
+            {
+                id: 5,
+                type: 'mcq',
+                points: 2,
+                question: 'المقاومة المكافئة في التوصيل على التوازي تكون:',
+                options: [
+                    'أكبر من أكبر مقاومة',
+                    'مساوية لمجموع المقاومات',
+                    'أقل من أصغر مقاومة في الدائرة',
+                    'مساوية لمتوسط المقاومات'
+                ],
+                correct: 2,
+                explanation: 'في التوازي: 1/R = 1/R₁ + 1/R₂ + ...، والمقاومة المكافئة دائماً أقل من أصغر مقاومة في الدائرة لأن التيار له مسارات متعددة.'
+            },
+            {
+                id: 6,
+                type: 'mcq',
+                points: 2,
+                question: 'إذا كان التيار المار في مقاومة 2 أمبير وفرق الجهد 12 فولت، فإن قيمة المقاومة تساوي:',
+                options: [
+                    '6 أوم',
+                    '24 أوم',
+                    '0.17 أوم',
+                    '10 أوم'
+                ],
+                correct: 0,
+                explanation: 'من قانون أوم: R = V/I = 12/2 = 6 أوم'
+            },
+            {
+                id: 7,
+                type: 'mcq',
+                points: 2,
+                question: 'عند توصيل مقاومتين 4 أوم و 6 أوم على التوالي، المقاومة المكافئة تساوي:',
+                options: [
+                    '2.4 أوم',
+                    '10 أوم',
+                    '24 أوم',
+                    '5 أوم'
+                ],
+                correct: 1,
+                explanation: 'في التوالي: R_total = R₁ + R₂ = 4 + 6 = 10 أوم'
+            },
+            {
+                id: 8,
+                type: 'mcq',
+                points: 2,
+                question: 'الجهد الطرفي للبطارية يكون أقل من القوة الدافعة الكهربية بسبب:',
+                options: [
+                    'المقاومة الداخلية للبطارية',
+                    'شدة التيار فقط',
+                    'كلاهما (المقاومة الداخلية وشدة التيار)',
+                    'لا شيء مما سبق'
+                ],
+                correct: 2,
+                explanation: 'V = ε - I×r، الجهد الطرفي يقل بسبب المقاومة الداخلية (r) وشدة التيار (I) معاً. هبوط الجهد = I×r'
+            },
+            {
+                id: 9,
+                type: 'mcq',
+                points: 2,
+                question: 'بطارية قوتها الدافعة 12 فولت ومقاومتها الداخلية 1 أوم، وُصلت بمقاومة 5 أوم. شدة التيار المار في الدائرة تساوي:',
+                options: [
+                    '2 أمبير',
+                    '12 أمبير',
+                    '60 أمبير',
+                    '2.4 أمبير'
+                ],
+                correct: 0,
+                explanation: 'I = ε / (R + r) = 12 / (5 + 1) = 12 / 6 = 2 أمبير'
+            },
+            {
+                id: 10,
+                type: 'mcq',
+                points: 2,
+                question: 'في نفس البطارية السابقة (12V, 1Ω, مع مقاومة 5Ω)، الجهد الطرفي للبطارية يساوي:',
+                options: [
+                    '12 فولت',
+                    '10 فولت',
+                    '2 فولت',
+                    '6 فولت'
+                ],
+                correct: 1,
+                explanation: 'V = ε - I×r = 12 - (2 × 1) = 12 - 2 = 10 فولت'
+            },
+            {
+                id: 11,
+                type: 'mcq',
+                points: 2,
+                question: 'القدرة الكهربية المستهلكة في المقاومة تُحسب من العلاقة:',
+                options: [
+                    'P = V × I فقط',
+                    'P = I² × R فقط',
+                    'P = V² / R فقط',
+                    'جميع ما سبق صحيح'
+                ],
+                correct: 3,
+                explanation: 'القدرة الكهربية يمكن حسابها بثلاث صيغ مكافئة: P = V×I = I²R = V²/R، وجميعها صحيحة ومشتقة من قانون أوم.'
+            },
+            {
+                id: 12,
+                type: 'mcq',
+                points: 2,
+                question: 'مصباح يعمل على جهد 120 فولت ويسحب تيار 2 أمبير. القدرة المستهلكة تساوي:',
+                options: [
+                    '60 واط',
+                    '240 واط',
+                    '120 واط',
+                    '2 واط'
+                ],
+                correct: 1,
+                explanation: 'P = V × I = 120 × 2 = 240 واط'
+            },
+            {
+                id: 13,
+                type: 'mcq',
+                points: 2,
+                question: 'ثلاث مقاومات 2Ω، 4Ω، 4Ω وُصلت على التوازي. المقاومة المكافئة للمجموعة تساوي:',
+                options: [
+                    '10 أوم',
+                    '1 أوم',
+                    '0.5 أوم',
+                    '2 أوم'
+                ],
+                correct: 1,
+                explanation: '1/R = 1/2 + 1/4 + 1/4 = 2/4 + 1/4 + 1/4 = 4/4 = 1، إذن R = 1 أوم'
+            },
+            {
+                id: 14,
+                type: 'mcq',
+                points: 2,
+                question: 'لماذا توصل الأجهزة الكهربائية في المنازل على التوازي وليس على التوالي؟',
+                options: [
+                    'لتوفير في الأسلاك',
+                    'لأن كل جهاز يحتاج نفس الجهد (120V) ويعمل مستقلاً عن الآخر',
+                    'لأن التوالي أسهل في التركيب',
+                    'لأن التوازي يقلل استهلاك الطاقة'
+                ],
+                correct: 1,
+                explanation: 'في التوازي، كل جهاز يحصل على الجهد الكامل (120V) ويعمل بشكل مستقل. إذا تعطل جهاز لا تتأثر الأجهزة الأخرى.'
+            },
+            {
+                id: 15,
+                type: 'mcq',
+                points: 2,
+                question: 'تزداد المقاومة الكهربية للموصل بزيادة:',
+                options: [
+                    'مساحة مقطعه العرضي',
+                    'طوله',
+                    'درجة حرارته فقط',
+                    'شدة التيار المار فيه'
+                ],
+                correct: 1,
+                explanation: 'المقاومة R = ρL/A، تتناسب طردياً مع الطول (L) وعكسياً مع مساحة المقطع (A). فكلما زاد الطول زادت المقاومة.'
+            }
+        ];
+
+        // ==================== STATE ====================
+        let userAnswers = {};
+        let timeLeft = 30 * 60;
+        let timerInterval;
+
+        // ==================== RENDER QUESTIONS ====================
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            let html = '';
+            
+            questions.forEach((q, index) => {
+                const qNumber = index + 1;
+                const bgColor = index % 3 === 0 ? 'from-blue-50 to-indigo-50 border-blue-500' : 
+                               index % 3 === 1 ? 'from-purple-50 to-pink-50 border-purple-500' : 
+                               'from-green-50 to-teal-50 border-green-500';
+                
+                html += `
+                    <div class="bg-gradient-to-br ${bgColor} rounded-2xl p-6 shadow-lg border-r-4 fade-in" id="q${q.id}">
+                        <div class="flex items-start justify-between mb-4 flex-wrap gap-2">
+                            <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                                <span class="bg-white text-indigo-600 rounded-full w-10 h-10 flex items-center justify-center font-bold shadow">${qNumber}</span>
+                                السؤال ${qNumber}
+                            </h3>
+                            <span class="bg-white px-3 py-1 rounded-full text-sm font-semibold text-purple-600 shadow">${q.points} ${q.points > 1 ? 'درجات' : 'درجة'}</span>
+                        </div>
+                        <p class="font-semibold text-gray-800 mb-4 text-lg">${q.question}</p>
+                        ${renderMCQ(q)}
+                        <div id="explanation${q.id}" class="hidden mt-4 bg-white rounded-xl p-4 border-2 border-green-400">
+                            <div class="flex items-start gap-2">
+                                <span class="text-2xl">💡</span>
+                                <div>
+                                    <p class="font-bold text-green-700 mb-1">الإجابة الصحيحة:</p>
+                                    <p class="text-gray-700">${q.explanation}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function renderMCQ(q) {
+            const letters = ['أ', 'ب', 'ج', 'د'];
+            return `
+                <div class="space-y-3">
+                    ${q.options.map((opt, i) => `
+                        <label class="flex items-center gap-3 bg-white rounded-xl p-4 cursor-pointer hover:shadow-lg transition border-2 border-transparent" id="opt${q.id}_${i}">
+                            <input type="radio" name="q${q.id}" value="${i}" onchange="selectAnswer(${q.id}, ${i})" class="w-5 h-5 text-indigo-600">
+                            <span class="bg-indigo-100 text-indigo-700 rounded-full w-8 h-8 flex items-center justify-center font-bold">${letters[i]}</span>
+                            <span class="flex-1 text-gray-800">${opt}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // ==================== ANSWER HANDLING ====================
+        function selectAnswer(qId, optIndex) {
+            userAnswers[qId] = optIndex;
+            updateProgress();
+            
+            const options = document.querySelectorAll(`[id^="opt${qId}_"]`);
+            options.forEach((opt, i) => {
+                if (i === optIndex) {
+                    opt.classList.add('option-selected');
+                } else {
+                    opt.classList.remove('option-selected');
+                }
+            });
+        }
+
+        function updateProgress() {
+            const answered = Object.keys(userAnswers).length;
+            const total = questions.length;
+            const percentage = (answered / total) * 100;
+            
+            document.getElementById('progress').textContent = `${answered}/${total}`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+        }
+
+        // ==================== TIMER ====================
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timerEl = document.getElementById('timer');
+                timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                
+                if (timeLeft <= 300) {
+                    timerEl.classList.add('timer-warning');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        // ==================== SUBMIT & GRADE ====================
+        function submitExam() {
+            const studentName = document.getElementById('studentName').value.trim();
+            const studentId = document.getElementById('studentId').value.trim();
+            
+            if (!studentName || !studentId) {
+                alert('⚠️ من فضلك أدخل الاسم ورقم الجلوس قبل التسليم!');
+                document.getElementById('studentName').focus();
+                return;
+            }
+            
+            const answered = Object.keys(userAnswers).length;
+            if (answered < questions.length) {
+                if (!confirm(`⚠️ لم تجب على ${questions.length - answered} سؤال بعد. هل تريد التسليم الآن؟`)) {
+                    return;
+                }
+            } else {
+                if (!confirm('هل أنت متأكد من تسليم الامتحان؟')) return;
+            }
+            
+            clearInterval(timerInterval);
+            
+            let totalScore = 0;
+            let correctCount = 0;
+            let resultsHTML = '';
+            let emailBody = '';
+            
+            emailBody += `📋 نتيجة امتحان الدائرة الكهربية\n`;
+            emailBody += `=====================================\n\n`;
+            emailBody += `👤 اسم الطالب: ${studentName}\n`;
+            emailBody += `🔢 رقم الجلوس: ${studentId}\n`;
+            emailBody += `🏫 الشعبة: ${document.getElementById('studentClass').value || 'غير محدد'}\n`;
+            emailBody += `📅 التاريخ: ${new Date().toLocaleString('ar-EG')}\n\n`;
+            emailBody += `📊 تفاصيل الإجابات:\n`;
+            emailBody += `---------------------\n`;
+            
+            questions.forEach((q, index) => {
+                const userAns = userAnswers[q.id];
+                let isCorrect = false;
+                
+                isCorrect = userAns === q.correct;
+                const userAnsText = userAns !== undefined ? q.options[userAns] : 'لم يتم الإجابة';
+                const correctAnsText = q.options[q.correct];
+                
+                if (userAns !== undefined) {
+                    const userOpt = document.getElementById(`opt${q.id}_${userAns}`);
+                    if (isCorrect) {
+                        userOpt.classList.add('option-correct');
+                    } else {
+                        userOpt.classList.add('option-wrong');
+                    }
+                }
+                if (!isCorrect && userAns !== undefined) {
+                    const correctOpt = document.getElementById(`opt${q.id}_${q.correct}`);
+                    correctOpt.classList.add('option-correct');
+                }
+                
+                if (isCorrect) {
+                    totalScore += q.points;
+                    correctCount++;
+                }
+                
+                document.getElementById(`explanation${q.id}`).classList.remove('hidden');
+                
+                emailBody += `\n❓ السؤال ${index + 1}: ${q.question}\n`;
+                emailBody += `👤 إجابة الطالب: ${userAnsText}\n`;
+                emailBody += `✅ الإجابة الصحيحة: ${correctAnsText}\n`;
+                emailBody += `${isCorrect ? '✅ صحيح' : '❌ خطأ'} (${isCorrect ? q.points : 0}/${q.points})\n`;
+                
+                resultsHTML += `
+                    <div class="flex items-center gap-3 p-3 rounded-lg ${isCorrect ? 'bg-green-50' : 'bg-red-50'}">
+                        <span class="text-2xl">${isCorrect ? '✅' : '❌'}</span>
+                        <span class="flex-1">السؤال ${index + 1}</span>
+                        <span class="font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}">${isCorrect ? q.points : 0}/${q.points}</span>
+                    </div>
+                `;
+            });
+            
+            const totalPoints = questions.reduce((sum, q) => sum + q.points, 0);
+            const percentage = ((totalScore / totalPoints) * 100).toFixed(1);
+            const gradeColor = percentage >= 90 ? 'green' : percentage >= 75 ? 'blue' : percentage >= 60 ? 'yellow' : 'red';
+            const gradeMessage = percentage >= 90 ? 'ممتاز! 🌟' : percentage >= 75 ? 'جيد جداً! 👏' : percentage >= 60 ? 'جيد 👍' : 'يحتاج مراجعة 📚';
+            
+            emailBody += `\n=====================================\n`;
+            emailBody += `🏆 النتيجة النهائية: ${totalScore} / ${totalPoints}\n`;
+            emailBody += `📈 النسبة المئوية: ${percentage}%\n`;
+            emailBody += `✅ عدد الإجابات الصحيحة: ${correctCount} من ${questions.length}\n`;
+            emailBody += `🎯 التقييم: ${gradeMessage}\n`;
+            
+            const resultsContent = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-3">${percentage >= 60 ? '🎉' : '📚'}</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">نتيجة الامتحان</h2>
+                    <p class="text-gray-600">${studentName}</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-${gradeColor}-100 to-${gradeColor}-200 rounded-2xl p-8 mb-6 text-center">
+                    <div class="text-7xl font-bold text-${gradeColor}-700 mb-2">${percentage}%</div>
+                    <div class="text-2xl font-bold text-${gradeColor}-800 mb-2">${gradeMessage}</div>
+                    <div class="text-xl text-gray-700">
+                        <span class="font-bold">${totalScore}</span> / <span>${totalPoints}</span> درجة
+                    </div>
+                    <div class="text-gray-600 mt-2">
+                        ${correctCount} إجابة صحيحة من ${questions.length}
+                    </div>
+                </div>
+                
+                <h3 class="font-bold text-xl mb-4 text-gray-800">📊 تفاصيل الإجابات:</h3>
+                <div class="space-y-2 mb-6">
+                    ${resultsHTML}
+                </div>
+                
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mb-4">
+                    <h4 class="font-bold text-blue-800 mb-2">💡 نصيحة:</h4>
+                    <p class="text-gray-700">${percentage >= 75 ? 'أداء رائع! راجع الأسئلة التي أخطأت فيها لتعزيز فهمك.' : 'راجع الدرس جيداً وحاول مرة أخرى. الممارسة تصنع المعجزات!'}</p>
+                </div>
+                
+                <div class="bg-green-50 border-2 border-green-300 rounded-xl p-6">
+                    <h4 class="font-bold text-green-800 mb-3 flex items-center gap-2">
+                        <span class="text-2xl">📧</span> إرسال النتيجة للمعلم
+                    </h4>
+                    <p class="text-gray-700 mb-4">سيتم فتح تطبيق البريد الإلكتروني لإرسال النتيجة تلقائياً للمعلم:</p>
+                    <div class="bg-white rounded-lg p-3 mb-4 text-sm">
+                        <p><strong>إلى:</strong> mohammedhesham872@gmail.com</p>
+                        <p><strong>الموضوع:</strong> نتيجة امتحان الدائرة الكهربية - ${studentName}</p>
+                    </div>
+                    <button onclick="sendEmailToTeacher()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:scale-105">
+                        📤 إرسال النتيجة الآن
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('resultsContent').innerHTML = resultsContent;
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('submitBtn').innerHTML = '✅ تم تسليم الامتحان';
+            
+            // Store email body for later use
+            window.examEmailBody = emailBody;
+            window.examStudentName = studentName;
+            
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ==================== SEND EMAIL ====================
+        function sendEmailToTeacher() {
+            const teacherEmail = 'mohammedhesham872@gmail.com';
+            const subject = encodeURIComponent(`نتيجة امتحان الدائرة الكهربية - ${window.examStudentName}`);
+            const body = encodeURIComponent(window.examEmailBody);
+            
+            const mailtoLink = `mailto:${teacherEmail}?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+            
+            setTimeout(() => {
+                alert('✅ تم فتح تطبيق البريد الإلكتروني لإرسال النتيجة.\nإذا لم يتم فتحه، يمكنك إرسال النتيجة يدوياً إلى:\nmohammedhesham872@gmail.com');
+            }, 1000);
+        }
+
+        // ==================== INITIALIZE ====================
+        renderQuestions();
+        startTimer();
+    </script>
 </body>
 </html>
